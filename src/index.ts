@@ -14,8 +14,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
-    // Add headers as needed
+  origin: 'https://nf-chat-frontend.vercel.app',
 }));
 app.use(express.json());
 app.use(logger);
