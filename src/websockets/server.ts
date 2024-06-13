@@ -5,7 +5,7 @@ import { SOCKET_EVENTS } from "../consts";
 export default (expressServer) => {
   SocketIOService.instance().initialize(expressServer, {
     cors: {
-      origin: [process.env.FRONT_URL as string],
+      origin: "https://nf-chat-frontend.vercel.app",
     },
   });
 
