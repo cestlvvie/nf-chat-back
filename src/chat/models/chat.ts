@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 export interface IChat {
   participants: mongoose.Types.ObjectId[];
+  onlineParticipants: mongoose.Types.ObjectId[];
   lastMessage: mongoose.Types.ObjectId;
 }
 
@@ -11,6 +12,12 @@ const chatSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+  ],
+  onlineParticipants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
   ],
   lastMessage: {

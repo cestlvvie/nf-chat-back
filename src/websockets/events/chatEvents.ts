@@ -17,6 +17,7 @@ class SocketEventService {
     }
     return SocketEventService.instance;
   }
+  
 
   public fireMessageEvent(conversationId, message: MessageModel) {
     try {

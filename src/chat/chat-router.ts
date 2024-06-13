@@ -24,7 +24,7 @@ chatRouter.post("/:id/sendText", authMiddleware, async (req, res) => {
   res.send("success");
 });
 
-chatRouter.get("/:id", async (req, res) => {
+chatRouter.get("/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const chat = await chatModel.findById(id);
   const messages = await messageModel.find({ chat: chat?.id });
@@ -47,6 +47,12 @@ chatRouter.post('/:id/sendFile', authMiddleware, upload.single('file'), async (r
   } catch (error) {
     res.status(500).send('Error uploading file.');
   }
+});
+
+chatRouter.post("/createchat", authMiddleware, async (req, res) => {
+  const { participants } = req.body;
+  const chat = await chatService.createChat(participants);
+  res.json(chat);
 });
 
 export default chatRouter;

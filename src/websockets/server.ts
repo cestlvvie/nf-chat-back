@@ -5,7 +5,7 @@ import { SOCKET_EVENTS } from "../consts";
 export default (expressServer) => {
   SocketIOService.instance().initialize(expressServer, {
     cors: {
-      origin: ["http://localhost:3000", "https://wardrobe.kz"],
+      origin: [process.env.FRONT_URL as string],
     },
   });
 

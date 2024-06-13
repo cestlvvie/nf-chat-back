@@ -30,6 +30,15 @@ class ChatService {
       lastMessage: message._id
     });
   }
+
+  async createChat(participants: string[]) {
+    const chat = await chatModel.create({
+      participants,
+      lastMessage: null,
+    });
+
+    return chat;
+  }
 }
 
 export default ChatService;
