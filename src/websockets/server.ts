@@ -33,8 +33,8 @@ export default (expressServer) => {
       socket.join(room);
     });
 
-    socket.on(SOCKET_EVENTS.TYPING, function ({ chatId }) {
-      socket.to(chatId).emit(SOCKET_EVENTS.TYPING);
+     socket.on(SOCKET_EVENTS.TYPING, ({ chatId, senderId }) => {
+      socket.to(chatId).emit(SOCKET_EVENTS.TYPING, { senderId });  
     });
 
     socket.on(SOCKET_EVENTS.LEAVE_CHAT, async ({ ...roomObject }) => {
