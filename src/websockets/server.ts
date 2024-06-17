@@ -10,12 +10,9 @@ export default (expressServer) => {
   });
 
   const io = SocketIOService.instance().getServer();
-  const onlineUsers = new Set<string>();
 
   io.on("connection", async (socket) => {
-    const userId = socket.handshake.query.userId;
-    onlineUsers.add(userId);
-    io.emit(SOCKET_EVENTS.USER_ONLINE, userId);
+    // const session = (socket.request as any).session;
 
     socket.on(SOCKET_EVENTS.JOIN_CHAT, async ({ ...roomObject }) => {
       const room = roomObject.chatId;
@@ -58,9 +55,11 @@ export default (expressServer) => {
 
     socket.on("disconnect", () => {
       console.log("Client disconnected");
-      onlineUsers.delete(userId);
-      io.emit(SOCKET_EVENTS.USER_OFFLINE, userId);
     });
+
+    // io.of("/").adapter.on("join-room", (room, id) => {
+    //   console.log(`socket ${id} has joined room ${room}`);
+    // });
 
     io.of("/").adapter.on("leave-room", (room, id) => {
       socket.to(room).emit(SOCKET_EVENTS.PARTNER_LEFT);
