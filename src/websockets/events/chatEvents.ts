@@ -17,22 +17,23 @@ class SocketEventService {
     }
     return SocketEventService.instance;
   }
+  
 
-  public fireMessageEvent(conversationId: string, message: MessageModel) {
+  public fireMessageEvent(conversationId, message: MessageModel) {
     try {
       this.socketIO
-        .to(conversationId)
+        .to(conversationId.toString())
         .emit(SOCKET_EVENTS.MESSAGE, message);
     } catch (e: any) {
       console.error("Error in fireMessageEvent", e.message);
     }
   }
 
-  public fireMessageReadEvent(conversationId: string, messageId: string) {
+  public fireMessageReadEvent(conversationId, messageId) {
     try {
       this.socketIO
-        .to(conversationId)
-        .emit(SOCKET_EVENTS.MESSAGE_READ, messageId);
+        .to(conversationId.toString())
+        .emit(SOCKET_EVENTS.MESSAGE_READ, messageId.toString());
     } catch (e: any) {
       console.error("Error in fireMessageReadEvent", e.message);
     }
